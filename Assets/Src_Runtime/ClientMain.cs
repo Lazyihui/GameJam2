@@ -2,12 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientMain : MonoBehaviour {
-    void Start() {
-        Debug.Log("ClientMain Start");
-    }
+namespace GJ {
 
-    void Update() {
+    public class ClientMain : MonoBehaviour {
 
+        static LoginSystem loginSystem;
+
+        // ==== Modules ====
+        static AssetModule assetModule;
+
+        bool isInit = false;
+        bool isTearDown = false;
+
+        public void Awake() {
+            Debug.Log("ClientMain Awake");
+
+            // ==== Ctor ==== 
+            loginSystem = new LoginSystem();
+
+            // Modules
+            assetModule = GetComponentInChildren<AssetModule>();
+            assetModule.Ctor();
+
+            // Inject
+            loginSystem.Inject(assetModule);
+
+
+            // Start
+            // ==== Bind Events ====
+            BindEvents();
+
+            // ==== Init ====
+            StartCoroutine(InitIE());
+        }
+
+        void BindEvents() {
+        }
+        #region Init IE
+        IEnumerator InitIE() {
+
+            yield return assetModule.LoadAllIE();
+            isInit = true;
+
+            loginSystem.Enter();
+        }
+        #endregion
+        void Update() {
+
+            if (!isInit) {
+                return;
+            }
+        }
+        #region TearDown
+        void OnApplicationQuit() {
+            TearDown();
+        }
+
+        void OnDestroy() {
+            TearDown();
+        }
+
+        void TearDown() {
+            if (isTearDown) {
+                return;
+            }
+            isTearDown = true;
+
+            assetModule.ReleaseAll();
+        }
+        #endregion
     }
 }
