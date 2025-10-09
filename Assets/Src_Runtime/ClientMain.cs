@@ -16,7 +16,7 @@ namespace GJ {
         bool isTearDown = false;
 
         public void Awake() {
-            Debug.Log("ClientMain Awake");
+            GJLog.Log("ClientMain Awake");
 
             // ==== Ctor ==== 
             loginSystem = new LoginSystem();
@@ -46,7 +46,11 @@ namespace GJ {
             var loginEvents = loginSystem.Events;
             loginEvents.OnStartHandle = () => {
                 loginSystem.ExitWithoutNotify();
-                Debug.Log("开始游戏");
+                // Debug.LogWarning("TODO: Enter Main Scene");
+                GJLog.LogTodo("TODO: Enter Main Scene");
+                GJLog.Log("Game Start!");
+                GJLog.LogLazy("Game Start! (Lazy");
+                GJLog.LogJacket("Game Start! (Jacket");
             };
         }
         #region Init IE
