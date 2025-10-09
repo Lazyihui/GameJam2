@@ -27,6 +27,10 @@ namespace GJ {
             });
         }
 
+        public void Init() {
+            
+        }
+
         public void Close() {
             btn_start.onClick.RemoveAllListeners();
             GameObject.Destroy(gameObject);

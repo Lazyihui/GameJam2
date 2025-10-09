@@ -30,7 +30,7 @@ namespace GJ {
 
             // Inject
             uiCore.Inject(assetModule);
-            loginSystem.Inject(assetModule);
+            loginSystem.Inject(assetModule, uiCore);
 
 
             // Start
@@ -42,6 +42,12 @@ namespace GJ {
         }
 
         void BindEvents() {
+            // - Login
+            var loginEvents = loginSystem.Events;
+            loginEvents.OnStartHandle = () => {
+                loginSystem.ExitWithoutNotify();
+                Debug.Log("开始游戏");
+            };
         }
         #region Init IE
         IEnumerator InitIE() {
@@ -53,7 +59,6 @@ namespace GJ {
         }
         #endregion
         void Update() {
-
             if (!isInit) {
                 return;
             }
