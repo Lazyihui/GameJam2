@@ -9,6 +9,7 @@ namespace GJ {
         static LoginSystem loginSystem;
 
         // ==== Modules ====
+        static UICore uiCore;
         static AssetModule assetModule;
 
         bool isInit = false;
@@ -21,10 +22,14 @@ namespace GJ {
             loginSystem = new LoginSystem();
 
             // Modules
+            uiCore = GetComponentInChildren<UICore>();
+            uiCore.Ctor();
+
             assetModule = GetComponentInChildren<AssetModule>();
             assetModule.Ctor();
 
             // Inject
+            uiCore.Inject(assetModule);
             loginSystem.Inject(assetModule);
 
 
