@@ -161,9 +161,6 @@ namespace GJ.Editor {
 
         private void RefreshFilteredLogs() {
             filteredLogs.Clear();
-            
-            // 这里可以添加代码来重新处理现有的日志
-            // 但由于Unity API限制，可能无法获取历史日志
         }
 
         private void ClearLogs() {
