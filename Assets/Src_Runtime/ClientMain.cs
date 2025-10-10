@@ -16,7 +16,6 @@ namespace GJ {
         bool isTearDown = false;
 
         public void Awake() {
-            GJLog.Log("ClientMain Awake");
 
             // ==== Ctor ==== 
             loginSystem = new LoginSystem();
@@ -46,7 +45,7 @@ namespace GJ {
             var loginEvents = loginSystem.Events;
             loginEvents.OnStartHandle = () => {
                 loginSystem.ExitWithoutNotify();
-                GJLog.LogTodo("Show Start UI");
+                GJLog.LogTodo("TODO:游戏内容");
             };
         }
         #region Init IE

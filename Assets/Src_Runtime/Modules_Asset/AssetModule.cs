@@ -13,17 +13,23 @@ namespace GJ {
         Dictionary<PanelType, GameObject> panels;
         AsyncOperationHandle panelHandle;
 
+        Dictionary<EntityType, GameObject> entities;
+        AsyncOperationHandle entityHandle;
+
 
         public void Ctor() {
             panels = new Dictionary<PanelType, GameObject>();
+            entities = new Dictionary<EntityType, GameObject>();
         }
 
         public IEnumerator LoadAllIE() {
             yield return Panel_Load();
+            // yield return Entity_Load();
         }
 
         public void ReleaseAll() {
             Panel_Release();
+            Entity_Release();
         }
 
         #region Panel
@@ -55,6 +61,38 @@ namespace GJ {
 
         public bool Panel_TryGet(PanelType type, out GameObject go) {
             return panels.TryGetValue(type, out go);
+        }
+        #endregion
+
+        #region Entity
+        // IEnumerator Entity_Load() {
+        //     var handle = Addressables.LoadAssetsAsync<GameObject>("Entity", null);
+        //     while (!handle.IsDone) {
+        //         yield return null;
+        //     }
+        //     var list = handle.Result;
+        //     if (list == null || list.Count == 0) {
+        //         Debug.LogWarning("No Entity assets found.");
+        //         yield break;
+        //     }
+        //     foreach (var go in list) {
+        //         var entity = go.GetComponent<IEntityAsset>();
+        //         bool succ = entities.TryAdd(entity.Type, go);
+        //         if (!succ) {
+        //             Debug.LogError($"Entity Type: {entity.Type} already exists!");
+        //         }
+        //     }
+        //     entityHandle = handle;
+        // }
+
+        void Entity_Release() {
+            if (entityHandle.IsValid()) {
+                Addressables.Release(entityHandle);
+            }
+        }
+
+        public bool Entity_TryGet(EntityType type, out GameObject go) {
+            return entities.TryGetValue(type, out go);
         }
 
         #endregion
