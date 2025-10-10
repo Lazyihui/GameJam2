@@ -22,48 +22,80 @@ namespace GJ {
 
 
         public static void Log(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Normal)) {
                 LogInternal(msg?.ToString(), LogType.Normal);
             }
         }
 
         public static void LogTodo(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Todo)) {
                 LogInternal(msg?.ToString(), LogType.Todo);
             }
         }
 
         public static void LogLazy(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Lazy)) {
                 LogInternal(msg?.ToString(), LogType.Lazy);
             }
         }
 
         public static void LogJack(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Jack)) {
                 LogInternal(msg?.ToString(), LogType.Jack);
             }
         }
 
         public static void LogDogCat(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.DogCat)) {
                 LogInternal(msg?.ToString(), LogType.DogCat);
             }
         }
 
         public static void Warning(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Warning)) {
                 Debug.LogWarning($"{msg?.ToString()}");
             }
         }
 
         public static void Error(object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Error)) {
                 Debug.LogError($"{msg?.ToString()}");
             }
         }
 
         public static void Assert(bool condition, object msg) {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) return;
+#endif
+
             if (enabledLogTypes.Contains(LogType.Assert)) {
                 Debug.LogAssertion($"{msg?.ToString()}");
             }
