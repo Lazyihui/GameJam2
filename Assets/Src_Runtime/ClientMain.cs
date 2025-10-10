@@ -46,11 +46,7 @@ namespace GJ {
             var loginEvents = loginSystem.Events;
             loginEvents.OnStartHandle = () => {
                 loginSystem.ExitWithoutNotify();
-                // Debug.LogWarning("TODO: Enter Main Scene");
-                GJLog.LogTodo("TODO: Enter Main Scene");
-                GJLog.Log("Game Start!");
-                GJLog.LogLazy("Game Start! (Lazy");
-                GJLog.LogJacket("Game Start! (Jacket");
+                GJLog.LogTodo("Show Start UI");
             };
         }
         #region Init IE

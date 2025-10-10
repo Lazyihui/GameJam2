@@ -8,7 +8,8 @@ namespace GJ {
         Normal,
         Todo,
         Lazy,
-        Jacket,
+        Jack,
+        DogCat,
         Warning,
         Error,
         Assert

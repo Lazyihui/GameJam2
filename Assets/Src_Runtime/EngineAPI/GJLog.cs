@@ -10,34 +10,16 @@ namespace GJ {
             { LogType.Normal, (Color.white, true) },
             { LogType.Todo, (Color.yellow, true) },
             { LogType.Lazy, (Color.cyan, true) },
-            { LogType.Jacket, (Color.magenta, true) }
-        };
-
-        // 日志类型标识符（用于筛选）
-        static Dictionary<LogType, string> logTypeIdentifiers = new Dictionary<LogType, string> {
-            { LogType.Normal, "GJ_LOG" },
-            { LogType.Todo, "GJ_TODO" },
-            { LogType.Lazy, "GJ_LAZY" },
-            { LogType.Jacket, "GJ_JACKET" },
-            { LogType.Warning, "GJ_WARNING" },
-            { LogType.Error, "GJ_ERROR" },
-            { LogType.Assert, "GJ_ASSERT" }
+            { LogType.DogCat, (Color.magenta, true) },
+            { LogType.Jack, (new Color(1f, 0.5f, 0f), true) }, // Orange
         };
 
         // 筛选配置
         public static HashSet<LogType> enabledLogTypes = new HashSet<LogType> {
-            LogType.Normal, LogType.Todo, LogType.Lazy, LogType.Jacket,
-            LogType.Warning, LogType.Error, LogType.Assert
+            LogType.Normal, LogType.Todo, LogType.Lazy, LogType.Jack,
+            LogType.DogCat, LogType.Warning, LogType.Error, LogType.Assert
         };
 
-        public static LogType GetLogType(string identifier) {
-            foreach (var kvp in logTypeIdentifiers) {
-                if (kvp.Value == identifier) {
-                    return kvp.Key;
-                }
-            }
-            return LogType.Normal;
-        }
 
         public static void Log(object msg) {
             if (enabledLogTypes.Contains(LogType.Normal)) {
@@ -57,34 +39,40 @@ namespace GJ {
             }
         }
 
-        public static void LogJacket(object msg) {
-            if (enabledLogTypes.Contains(LogType.Jacket)) {
-                LogInternal(msg?.ToString(), LogType.Jacket);
+        public static void LogJack(object msg) {
+            if (enabledLogTypes.Contains(LogType.Jack)) {
+                LogInternal(msg?.ToString(), LogType.Jack);
+            }
+        }
+
+        public static void LogDogCat(object msg) {
+            if (enabledLogTypes.Contains(LogType.DogCat)) {
+                LogInternal(msg?.ToString(), LogType.DogCat);
             }
         }
 
         public static void Warning(object msg) {
             if (enabledLogTypes.Contains(LogType.Warning)) {
-                Debug.LogWarning($"[{logTypeIdentifiers[LogType.Warning]}]{msg?.ToString()}");
+                Debug.LogWarning($"{msg?.ToString()}");
             }
         }
 
         public static void Error(object msg) {
             if (enabledLogTypes.Contains(LogType.Error)) {
-                Debug.LogError($"[{logTypeIdentifiers[LogType.Error]}]{msg?.ToString()}");
+                Debug.LogError($"{msg?.ToString()}");
             }
         }
 
         public static void Assert(bool condition, object msg) {
             if (enabledLogTypes.Contains(LogType.Assert)) {
-                Debug.LogAssertion($"[{logTypeIdentifiers[LogType.Assert]}]{msg?.ToString()}");
+                Debug.LogAssertion($"{msg?.ToString()}");
             }
         }
 
         static void LogInternal(string message, LogType type) {
             if (logTypeConfigs.TryGetValue(type, out var config)) {
                 string formattedMsg = FormatMessage(message, config.color, config.bold);
-                Debug.Log($"[{logTypeIdentifiers[type]}]{formattedMsg}");
+                Debug.Log($"{formattedMsg}");
             }
         }
 

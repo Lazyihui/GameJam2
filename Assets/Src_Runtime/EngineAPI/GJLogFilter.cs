@@ -10,7 +10,8 @@ namespace GJ.Editor {
             { LogType.Normal, true },
             { LogType.Todo, true },
             { LogType.Lazy, true },
-            { LogType.Jacket, true },
+            { LogType.Jack, true },
+            { LogType.DogCat, true },
             { LogType.Warning, true },
             { LogType.Error, true },
             { LogType.Assert, true }
@@ -127,7 +128,8 @@ namespace GJ.Editor {
                 case LogType.Normal: return "Normal Logs";
                 case LogType.Todo: return "TODO Logs";
                 case LogType.Lazy: return "Lazy Logs";
-                case LogType.Jacket: return "Jacket Logs";
+                case LogType.Jack: return "Jack Logs";
+                case LogType.DogCat: return "DogCat Logs";
                 case LogType.Warning: return "Warnings";
                 case LogType.Error: return "Errors";
                 case LogType.Assert: return "Asserts";
