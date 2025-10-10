@@ -20,7 +20,6 @@ namespace GJ {
         }
 
         public void Enter() {
-            Debug.Log("LoginSystem Enter");
             PanelController.Login_Open(ctx);
 
             ctx.status = SystemStatus.Running;

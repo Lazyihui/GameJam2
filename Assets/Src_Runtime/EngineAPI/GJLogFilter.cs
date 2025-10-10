@@ -1,192 +1,155 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace GJ.Editor {
 
-    public class GJLogFilter : EditorWindow {
+    public class GJLogFilterWindow : EditorWindow {
 
-        private static Dictionary<string, bool> logTypeFilters = new Dictionary<string, bool> {
-            { "GJ_LOG", true },
-            { "GJ_TODO", true },
-            { "GJ_LAZY", true },
-            { "GJ_Jack", true },
-            { "GJ_WARNING", true },
-            { "GJ_ERROR", true },
-            { "GJ_ASSERT", true }
+        static Dictionary<LogType, bool> logTypeStates = new Dictionary<LogType, bool> {
+            { LogType.Normal, true },
+            { LogType.Todo, true },
+            { LogType.Lazy, true },
+            { LogType.Jacket, true },
+            { LogType.Warning, true },
+            { LogType.Error, true },
+            { LogType.Assert, true }
         };
 
-        private Vector2 scrollPosition;
-        private static bool isFilterEnabled = true;
-        private static List<LogEntry> filteredLogs = new List<LogEntry>();
-        private static GJLogFilter window;
+        Vector2 scrollPosition;
+        bool enableAll = true;
 
-        [MenuItem("GJ Tools/Log Filter")]
+        [MenuItem("Tools/GJ Log Filter")]
         public static void ShowWindow() {
-            window = GetWindow<GJLogFilter>("GJ Log Filter");
+            GJLogFilterWindow window = GetWindow<GJLogFilterWindow>("GJ Log Filter");
             window.minSize = new Vector2(250, 300);
+            LoadSettings();
         }
 
-        private void OnEnable() {
-            Application.logMessageReceived += HandleLog;
-            RefreshFilteredLogs();
+        void OnEnable() {
+            LoadSettings();
         }
 
-        private void OnDisable() {
-            Application.logMessageReceived -= HandleLog;
+        void OnGUI() {
+            DrawHeader();
+            DrawLogTypeFilters();
+            DrawActions();
         }
 
-        private void OnGUI() {
-            DrawFilterControls();
-            DrawLogList();
+        void DrawHeader() {
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("GJ Log Filter Settings", EditorStyles.boldLabel);
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("Enable/Disable specific log types:", EditorStyles.label);
+            EditorGUILayout.Space(10);
         }
 
-        private void DrawFilterControls() {
-            EditorGUILayout.BeginVertical(GUI.skin.box);
-            
-            // 总开关
-            EditorGUILayout.BeginHorizontal();
-            isFilterEnabled = EditorGUILayout.Toggle("Enable Filter", isFilterEnabled);
-            if (GUILayout.Button("Clear All")) {
-                ClearLogs();
-            }
-            EditorGUILayout.EndHorizontal();
+        void DrawLogTypeFilters() {
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-            EditorGUILayout.Space();
-
-            // 全选/全不选
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Select All")) {
-                SetAllFilters(true);
+            // 启用所有开关
+            EditorGUI.BeginChangeCheck();
+            enableAll = EditorGUILayout.Toggle("Enable All", enableAll);
+            if (EditorGUI.EndChangeCheck()) {
+                SetAllLogTypes(enableAll);
+                ApplySettings();
             }
-            if (GUILayout.Button("Deselect All")) {
-                SetAllFilters(false);
-            }
-            EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.Space();
+            EditorGUILayout.Space(10);
 
-            // 过滤器选项
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(150));
-            
-            foreach (var filter in logTypeFilters.ToList()) {
-                logTypeFilters[filter.Key] = EditorGUILayout.ToggleLeft($" {filter.Key}", filter.Value);
+            // 各个日志类型开关
+            foreach (var logType in System.Enum.GetValues(typeof(LogType))) {
+                LogType type = (LogType)logType;
+                EditorGUI.BeginChangeCheck();
+                bool newState = EditorGUILayout.ToggleLeft(GetLogTypeDisplayName(type), logTypeStates[type]);
+                if (EditorGUI.EndChangeCheck()) {
+                    logTypeStates[type] = newState;
+                    GJLog.SetLogTypeEnabled(type, newState);
+                    SaveSettings();
+                }
             }
-            
+
             EditorGUILayout.EndScrollView();
-
-            EditorGUILayout.EndVertical();
         }
 
-        private void DrawLogList() {
-            EditorGUILayout.LabelField("Filtered Logs", EditorStyles.boldLabel);
-            
-            Rect logListRect = GUILayoutUtility.GetRect(0, position.height - 200, GUILayout.ExpandWidth(true));
-            GUI.Box(logListRect, GUIContent.none);
-            
-            if (filteredLogs.Count == 0) {
-                EditorGUILayout.LabelField("No logs to display", EditorStyles.centeredGreyMiniLabel);
-                return;
+        void DrawActions() {
+            EditorGUILayout.Space(20);
+
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Enable All", GUILayout.Height(25))) {
+                SetAllLogTypes(true);
+                ApplySettings();
             }
 
-            Vector2 scroll = Vector2.zero;
-            float currentY = 0;
-            
-            foreach (var log in filteredLogs) {
-                DrawLogEntry(log, logListRect, ref currentY, ref scroll);
+            if (GUILayout.Button("Disable All", GUILayout.Height(25))) {
+                SetAllLogTypes(false);
+                ApplySettings();
             }
+
+            GUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(10);
+
+            if (GUILayout.Button("Apply Settings", GUILayout.Height(30))) {
+                ApplySettings();
+            }
+
+            EditorGUILayout.Space(5);
+
+            // 显示当前状态
+            int enabledCount = 0;
+            foreach (var state in logTypeStates.Values) {
+                if (state) enabledCount++;
+            }
+
+            EditorGUILayout.HelpBox($"{enabledCount}/{logTypeStates.Count} log types enabled", MessageType.Info);
         }
 
-        private void DrawLogEntry(LogEntry log, Rect containerRect, ref float currentY, ref Vector2 scroll) {
-            float entryHeight = 60;
-            Rect entryRect = new Rect(0, currentY, containerRect.width, entryHeight);
-            
-            if (entryRect.y + entryHeight >= scroll.y && entryRect.y <= scroll.y + containerRect.height) {
-                // 根据日志类型设置颜色
-                Color bgColor = GetLogTypeColor(log.type);
-                EditorGUI.DrawRect(entryRect, bgColor * 0.1f);
-                
-                GUIStyle labelStyle = new GUIStyle(EditorStyles.label);
-                labelStyle.wordWrap = true;
-                labelStyle.normal.textColor = Color.white;
-                
-                Rect contentRect = new Rect(entryRect.x + 5, entryRect.y + 5, entryRect.width - 10, entryRect.height - 10);
-                
-                EditorGUI.LabelField(new Rect(contentRect.x, contentRect.y, contentRect.width, 20), 
-                    $"[{log.type}]", EditorStyles.boldLabel);
-                
-                EditorGUI.LabelField(new Rect(contentRect.x, contentRect.y + 20, contentRect.width, 40), 
-                    log.message, labelStyle);
-            }
-            
-            currentY += entryHeight;
-        }
-
-        private Color GetLogTypeColor(string type) {
-            return type switch {
-                "GJ_TODO" => Color.yellow,
-                "GJ_LAZY" => Color.cyan,
-                "GJ_Jack" => Color.green,
-                "GJ_WARNING" => new Color(1, 0.5f, 0), // 橙色
-                "GJ_ERROR" => Color.red,
-                "GJ_ASSERT" => Color.red,
-                _ => Color.white
-            };
-        }
-
-        private void HandleLog(string logString, string stackTrace, LogType type) {
-            if (!isFilterEnabled) return;
-
-            // 解析日志类型
-            string logType = "GJ_LOG";
-            string message = logString;
-
-            var match = Regex.Match(logString, @"^\[(GJ_\w+)\](.+)");
-            if (match.Success) {
-                logType = match.Groups[1].Value;
-                message = match.Groups[2].Value.Trim();
-            } else {
-                // 如果不是GJ日志，使用Unity原生类型
-                logType = type.ToString().ToUpper();
-            }
-
-            // 检查是否应该显示这个日志
-            if (logTypeFilters.ContainsKey(logType) && logTypeFilters[logType]) {
-                filteredLogs.Add(new LogEntry(logType, message, stackTrace, type));
-                Repaint();
+        void SetAllLogTypes(bool enabled) {
+            enableAll = enabled;
+            foreach (var logType in System.Enum.GetValues(typeof(LogType))) {
+                LogType type = (LogType)logType;
+                logTypeStates[type] = enabled;
             }
         }
 
-        private void RefreshFilteredLogs() {
-            filteredLogs.Clear();
-        }
-
-        private void ClearLogs() {
-            filteredLogs.Clear();
+        void ApplySettings() {
+            foreach (var kvp in logTypeStates) {
+                GJLog.SetLogTypeEnabled(kvp.Key, kvp.Value);
+            }
+            SaveSettings();
             Repaint();
         }
 
-        private void SetAllFilters(bool value) {
-            var keys = logTypeFilters.Keys.ToList();
-            foreach (var key in keys) {
-                logTypeFilters[key] = value;
+        string GetLogTypeDisplayName(LogType type) {
+            switch (type) {
+                case LogType.Normal: return "Normal Logs";
+                case LogType.Todo: return "TODO Logs";
+                case LogType.Lazy: return "Lazy Logs";
+                case LogType.Jacket: return "Jacket Logs";
+                case LogType.Warning: return "Warnings";
+                case LogType.Error: return "Errors";
+                case LogType.Assert: return "Asserts";
+                default: return type.ToString();
             }
-            RefreshFilteredLogs();
         }
 
-        private class LogEntry {
-            public string type;
-            public string message;
-            public string stackTrace;
-            public LogType logType;
+        static void SaveSettings() {
+            foreach (var kvp in logTypeStates) {
+                EditorPrefs.SetBool($"GJLog_{kvp.Key}", kvp.Value);
+            }
+        }
 
-            public LogEntry(string type, string message, string stackTrace, LogType logType) {
-                this.type = type;
-                this.message = message;
-                this.stackTrace = stackTrace;
-                this.logType = logType;
+        static void LoadSettings() {
+            foreach (var logType in System.Enum.GetValues(typeof(LogType))) {
+                LogType type = (LogType)logType;
+                bool defaultValue = true;
+                if (type == LogType.Warning || type == LogType.Error) {
+                    defaultValue = true; // 默认开启警告和错误
+                }
+                logTypeStates[type] = EditorPrefs.GetBool($"GJLog_{type}", defaultValue);
+                GJLog.SetLogTypeEnabled(type, logTypeStates[type]);
             }
         }
     }
