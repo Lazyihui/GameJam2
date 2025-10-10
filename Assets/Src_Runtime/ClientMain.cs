@@ -7,6 +7,7 @@ namespace GJ {
     public class ClientMain : MonoBehaviour {
 
         static LoginSystem loginSystem;
+        static GameSystem gameSystem;
 
         // ==== Modules ====
         static UICore uiCore;
@@ -19,6 +20,7 @@ namespace GJ {
 
             // ==== Ctor ==== 
             loginSystem = new LoginSystem();
+            gameSystem = new GameSystem();
 
             // Modules
             uiCore = GetComponentInChildren<UICore>();
@@ -30,6 +32,7 @@ namespace GJ {
             // Inject
             uiCore.Inject(assetModule);
             loginSystem.Inject(assetModule, uiCore);
+            gameSystem.Inject(assetModule, uiCore);
 
 
             // Start
@@ -61,6 +64,9 @@ namespace GJ {
             if (!isInit) {
                 return;
             }
+            float dt = Time.deltaTime;
+            
+            gameSystem.Tick(dt);
         }
         #region TearDown
         void OnApplicationQuit() {

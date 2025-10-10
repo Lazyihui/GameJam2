@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GJ {
+namespace GJ.Systems_Game {
 
     public static class RoleController {
 
