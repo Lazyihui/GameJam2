@@ -24,7 +24,7 @@ namespace GJ {
 
         public IEnumerator LoadAllIE() {
             yield return Panel_Load();
-            // yield return Entity_Load();
+            yield return Entity_Load();
         }
 
         public void ReleaseAll() {
@@ -65,25 +65,25 @@ namespace GJ {
         #endregion
 
         #region Entity
-        // IEnumerator Entity_Load() {
-        //     var handle = Addressables.LoadAssetsAsync<GameObject>("Entity", null);
-        //     while (!handle.IsDone) {
-        //         yield return null;
-        //     }
-        //     var list = handle.Result;
-        //     if (list == null || list.Count == 0) {
-        //         Debug.LogWarning("No Entity assets found.");
-        //         yield break;
-        //     }
-        //     foreach (var go in list) {
-        //         var entity = go.GetComponent<IEntityAsset>();
-        //         bool succ = entities.TryAdd(entity.Type, go);
-        //         if (!succ) {
-        //             Debug.LogError($"Entity Type: {entity.Type} already exists!");
-        //         }
-        //     }
-        //     entityHandle = handle;
-        // }
+        IEnumerator Entity_Load() {
+            var handle = Addressables.LoadAssetsAsync<GameObject>("Entity", null);
+            while (!handle.IsDone) {
+                yield return null;
+            }
+            var list = handle.Result;
+            if (list == null || list.Count == 0) {
+                Debug.LogWarning("No Entity assets found.");
+                yield break;
+            }
+            foreach (var go in list) {
+                var entity = go.GetComponent<IEntityAsset>();
+                bool succ = entities.TryAdd(entity.EntityType, go);
+                if (!succ) {
+                    Debug.LogError($"Entity Type: {entity.EntityType} already exists!");
+                }
+            }
+            entityHandle = handle;
+        }
 
         void Entity_Release() {
             if (entityHandle.IsValid()) {

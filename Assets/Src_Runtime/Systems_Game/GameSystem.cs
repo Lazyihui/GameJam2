@@ -14,9 +14,14 @@ namespace GJ {
             ctx = new GameSystemContext();
         }
 
-        public void Inject(AssetModule assetModule, UICore ui) {
+        public void Inject(AssetModule assetModule, UICore ui,
+        RoleRepository roleRepository,
+        GameEntity gameEntity
+        ) {
             ctx.ui = ui;
             ctx.assetModule = assetModule;
+            ctx.roleRepository = roleRepository;
+            ctx.gameEntity = gameEntity;
         }
         #region Tick
         public void Tick(float dt) {

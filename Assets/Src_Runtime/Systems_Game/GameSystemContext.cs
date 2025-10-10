@@ -14,6 +14,7 @@ namespace GJ {
         public UICore ui;
 
         public AssetModule assetModule;
+        public RoleRepository roleRepository;
 
         // ==== Internal ====
         public GameEntity gameEntity;
@@ -21,9 +22,5 @@ namespace GJ {
         public GameSystemContext() {
         }
 
-        public void Inject(UICore ui, AssetModule assetModule) {
-            this.ui = ui;
-            this.assetModule = assetModule;
-        }
     }
 }

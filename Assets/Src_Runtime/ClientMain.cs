@@ -13,6 +13,10 @@ namespace GJ {
         static UICore uiCore;
         static AssetModule assetModule;
 
+        // ==== Repository =====
+        static RoleRepository roleRepository;
+        static GameEntity gameEntity;
+
         bool isInit = false;
         bool isTearDown = false;
 
@@ -21,6 +25,7 @@ namespace GJ {
             // ==== Ctor ==== 
             loginSystem = new LoginSystem();
             gameSystem = new GameSystem();
+            gameEntity = new GameEntity();
 
             // Modules
             uiCore = GetComponentInChildren<UICore>();
@@ -29,11 +34,16 @@ namespace GJ {
             assetModule = GetComponentInChildren<AssetModule>();
             assetModule.Ctor();
 
+            //==== Repository ====
+            roleRepository = new RoleRepository();
+
             // Inject
             uiCore.Inject(assetModule);
             loginSystem.Inject(assetModule, uiCore);
-            gameSystem.Inject(assetModule, uiCore);
-
+            gameSystem.Inject(assetModule, uiCore,
+                                  roleRepository,
+                                  gameEntity
+            );
 
             // Start
             // ==== Bind Events ====
@@ -48,7 +58,7 @@ namespace GJ {
             var loginEvents = loginSystem.Events;
             loginEvents.OnStartHandle = () => {
                 loginSystem.ExitWithoutNotify();
-                GJLog.LogTodo("TODO:游戏内容");
+                gameSystem.NewGame();
             };
         }
         #region Init IE
@@ -65,7 +75,7 @@ namespace GJ {
                 return;
             }
             float dt = Time.deltaTime;
-            
+
             gameSystem.Tick(dt);
         }
         #region TearDown
