@@ -1,0 +1,34 @@
+{
+    "name": "InputSystem_Action",
+    "maps": [
+        {
+            "name": "World",
+            "id": "170823ed-856f-4c6c-9125-6b083c7bd416",
+            "actions": [
+                {
+                    "name": "PressE",
+                    "type": "Value",
+                    "id": "2566c897-c551-428a-bce2-f921f1419e03",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0f44f639-ae0c-4d8d-a06d-f6e6ca289f52",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressE",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

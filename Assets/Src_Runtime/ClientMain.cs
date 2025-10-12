@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GJ.Modules_Input;
 using UnityEngine;
 
 namespace GJ {
@@ -12,6 +13,7 @@ namespace GJ {
         // ==== Modules ====
         static UICore uiCore;
         static AssetModule assetModule;
+        static InputModule inputModule;
 
         // ==== Repository =====
         static RoleRepository roleRepository;
@@ -33,6 +35,9 @@ namespace GJ {
 
             assetModule = GetComponentInChildren<AssetModule>();
             assetModule.Ctor();
+
+            inputModule = GetComponentInChildren<InputModule>();
+            inputModule.Ctor();
 
             //==== Repository ====
             roleRepository = new RoleRepository();
@@ -75,7 +80,8 @@ namespace GJ {
                 return;
             }
             float dt = Time.deltaTime;
-
+            inputModule.Tick(dt);
+            
             gameSystem.Tick(dt);
         }
         #region TearDown
