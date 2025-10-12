@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using GJ.Modules_Input;
 using UnityEngine;
 
@@ -81,7 +80,7 @@ namespace GJ {
             }
             float dt = Time.deltaTime;
             inputModule.Tick(dt);
-            
+
             gameSystem.Tick(dt);
         }
         #region TearDown
