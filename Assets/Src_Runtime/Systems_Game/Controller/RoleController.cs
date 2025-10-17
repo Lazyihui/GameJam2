@@ -41,6 +41,7 @@ namespace GJ.Systems_Game {
             var inputComp = role.inputComponent;
             if (inputComp.PressE_Get()) {
                 Debug.Log("Loco_PressE");
+                ctx.events.Curtain_Open_Invoke();
             }
         }
     }

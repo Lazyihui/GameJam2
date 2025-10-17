@@ -21,6 +21,7 @@ namespace GJ {
         // ==== Internal ====
 
         public GameSystemContext() {
+            events = new GameSystemEvents();
         }
 
         public RoleEntity Get_Owner() {

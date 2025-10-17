@@ -7,6 +7,7 @@ namespace GJ {
 
         static LoginSystem loginSystem;
         static GameSystem gameSystem;
+        static FinishSystem finishSystem;
 
         // ==== Modules ====
         static UICore uiCore;
@@ -23,9 +24,12 @@ namespace GJ {
 
         public void Awake() {
 
-            // ==== Ctor ==== 
+            // ==== Init Systems ====
             loginSystem = new LoginSystem();
             gameSystem = new GameSystem();
+            finishSystem = new FinishSystem();
+
+            // ==== Entity ====
             gameEntity = new GameEntity();
             userEntity = new UserEntity();
 
@@ -45,6 +49,7 @@ namespace GJ {
             // Inject
             uiCore.Inject(assetModule);
             loginSystem.Inject(assetModule, uiCore);
+            finishSystem.Inject(assetModule, uiCore);
             gameSystem.Inject(assetModule, uiCore,
                                   roleRepository,
                                   gameEntity,
@@ -67,6 +72,12 @@ namespace GJ {
                 loginSystem.ExitWithoutNotify();
                 gameSystem.NewGame();
             };
+
+            // - Game
+            var gameEvents = gameSystem.Events;
+            gameEvents.OnCurtainHande = () => {
+                finishSystem.Enter();
+            };
         }
         #region Init IE
         IEnumerator InitIE() {
@@ -85,6 +96,7 @@ namespace GJ {
             inputModule.Tick(dt);
 
             gameSystem.Tick(dt);
+            finishSystem.Tick(dt);
         }
         #region TearDown
         void OnApplicationQuit() {

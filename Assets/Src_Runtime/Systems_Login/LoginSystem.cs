@@ -5,11 +5,8 @@ using UnityEngine.Video;
 namespace GJ {
 
     public class LoginSystem {
-
         LoginSystemContext ctx;
-
         public LoginSystemEvents Events => ctx.events;
-
         public LoginSystem() {
             ctx = new LoginSystemContext();
         }

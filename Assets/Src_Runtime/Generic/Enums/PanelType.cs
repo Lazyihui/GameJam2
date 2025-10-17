@@ -6,6 +6,7 @@ namespace GJ {
         None = 0,
         Logo = 1,
         Login = 2,
+        Curtain = 3,
     }
 
 }
