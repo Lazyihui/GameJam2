@@ -14,11 +14,17 @@ namespace GJ.Systems_Game {
         }
 
         public static void OnResume(GameSystemContext ctx) {
-        }
 
+        }
 
         public static void OnExitGame(GameSystemContext ctx) {
             ctx.status = SystemStatus.Stopped;
+            // Role
+            int roleLen = ctx.roleRepository.TakeAll(out var roles);
+            for (int i = 0; i < roleLen; i++) {
+                var role = roles[i];
+                RoleController.UnSpawn(ctx, role);
+            }
         }
 
     }

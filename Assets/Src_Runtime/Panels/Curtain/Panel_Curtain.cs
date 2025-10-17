@@ -12,29 +12,29 @@ namespace GJ {
         [SerializeField] Button btn_reStart;
         [SerializeField] Button btn_exitGame;
 
-        [SerializeField] TextMeshProUGUI txt_title;
-
+        [SerializeField] CanvasGroup canvasGroup;
         public Action OnStartHandle;
         public Action OnExitGameHandle;
 
         public void Ctor() {
-            
-            btn_reStart.interactable = false;
+
+            btn_reStart.gameObject.SetActive(false);
             btn_reStart.onClick.AddListener(() => {
                 OnStartHandle?.Invoke();
             });
 
-            btn_exitGame.interactable = false;
+            btn_exitGame.gameObject.SetActive(false);
             btn_exitGame.onClick.AddListener(() => {
                 OnExitGameHandle?.Invoke();
             });
         }
 
         public void Init() {
-            
+
         }
 
         public void Close() {
+            StopAllCoroutines();
             btn_reStart.onClick.RemoveAllListeners();
             GameObject.Destroy(gameObject);
         }

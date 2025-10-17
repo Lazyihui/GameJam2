@@ -616,6 +616,7 @@ GameObject:
   - component: {fileID: 6444699837284723537}
   - component: {fileID: 5034823553904013255}
   - component: {fileID: 6204531778522116318}
+  - component: {fileID: 7946113383019573925}
   m_Layer: 5
   m_Name: Panel_Login
   m_TagString: Untagged
@@ -699,6 +700,19 @@ MonoBehaviour:
   btn_start: {fileID: 4707595141988690004}
   btn_exitGame: {fileID: 1428521990682576440}
   txt_title: {fileID: 0}
+  canvasGroup: {fileID: 7946113383019573925}
+--- !u!225 &7946113383019573925
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7334392722554316699}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7349064040762586115
 GameObject:
   m_ObjectHideFlags: 0

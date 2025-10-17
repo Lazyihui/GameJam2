@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: fe74f7810e3f76c48816282f81a0e66d
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 43205805930c25da9bda698b43d7563a
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -48,6 +48,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a2aaee402ebf114e83a4c52bab67bbf, type: 2}
   - {fileID: 11400000, guid: 4342e0bb87cb8cd4f87dbc264e724f1d, type: 2}
   - {fileID: 11400000, guid: 5926ea05d5aeaf646b245cefbd2fb090, type: 2}
+  - {fileID: 11400000, guid: 61f4a6b9a1cb8df4eb56eea606babff8, type: 2}
+  - {fileID: 11400000, guid: 1b9faf28f68247b4182c66845e7a189f, type: 2}
+  - {fileID: 11400000, guid: 29501696302019848ab258bf6e257904, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -91,6 +94,8 @@ MonoBehaviour:
     - default
     - Entity
     - Panel
+    - Mission
+    - Prop
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1a1b7b4aef1df314ba8f7d400242cc4b, type: 2}

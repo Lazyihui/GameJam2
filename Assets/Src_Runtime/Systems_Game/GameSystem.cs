@@ -76,6 +76,7 @@ namespace GJ {
         #region  Events
         public void NewGame() {
             SystemController.NewGame(ctx);
+            Debug.Log("新游戏");
         }
 
         public void OnResume() {
@@ -84,6 +85,7 @@ namespace GJ {
 
         public void OnExitGame() {
             SystemController.OnExitGame(ctx);
+            Debug.Log("退出游戏");
         }
 
         #endregion

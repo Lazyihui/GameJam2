@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using GJ.Systems_Finish ;
+using GJ.Systems_Finish;
 
 namespace GJ {
 
@@ -26,7 +26,8 @@ namespace GJ {
 
         public void Enter() {
             SystemController.NewFinish(ctx);
-            // PanelController.Finish_Open(ctx);
+            Debug.Log("进入结算");
+            PanelController_Finish.Curtain_Open(ctx);
             ctx.status = SystemStatus.Running;
         }
 

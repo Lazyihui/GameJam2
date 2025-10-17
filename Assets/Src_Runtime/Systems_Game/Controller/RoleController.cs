@@ -24,6 +24,10 @@ namespace GJ.Systems_Game {
             return role;
         }
 
+        public static void UnSpawn(GameSystemContext ctx, RoleEntity role) {
+            ctx.roleRepository.Remove(role);
+        }
+
         public static void Tick_Owner(GameSystemContext ctx, RoleEntity role, float dt) {
             // 用户或者主角才是这个
             Input_Record(ctx, role, dt);

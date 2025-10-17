@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace GJ.System_Finish {
+namespace GJ.Systems_Finish {
 
-    public static class PanelController {
+    public static class PanelController_Finish {
 
         #region Curtain
         public static void Curtain_Open(FinishSystemContext ctx) {

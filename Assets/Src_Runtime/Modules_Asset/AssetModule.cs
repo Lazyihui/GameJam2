@@ -16,20 +16,32 @@ namespace GJ {
         Dictionary<EntityType, GameObject> entities;
         AsyncOperationHandle entityHandle;
 
+        Dictionary<TypeID, MissionSO> missions;
+        AsyncOperationHandle missionHandle;
+
+        Dictionary<TypeID, PropSO> props;
+        AsyncOperationHandle propHandle;
+
 
         public void Ctor() {
             panels = new Dictionary<PanelType, GameObject>();
             entities = new Dictionary<EntityType, GameObject>();
+            missions = new Dictionary<TypeID, MissionSO>();
+            props = new Dictionary<TypeID, PropSO>();
         }
 
         public IEnumerator LoadAllIE() {
             yield return Panel_Load();
             yield return Entity_Load();
+            yield return Mission_Load();
+            yield return Prop_Load();
         }
 
         public void ReleaseAll() {
             Panel_Release();
             Entity_Release();
+            Mission_Release();
+            Prop_Release();
         }
 
         #region Panel
@@ -95,6 +107,71 @@ namespace GJ {
             return entities.TryGetValue(type, out go);
         }
 
+        #endregion
+
+        #region Mission
+        IEnumerator Mission_Load() {
+            var handle = Addressables.LoadAssetsAsync<MissionSO>("Mission", null);
+            while (!handle.IsDone) {
+                yield return null;
+            }
+            var list = handle.Result;
+            if (list == null || list.Count == 0) {
+                Debug.LogWarning("No MissionSO assets found.");
+                yield break;
+            }
+            foreach (var mission in list) {
+                bool succ = missions.TryAdd(mission.typeID, mission);
+                if (!succ) {
+                    Debug.LogWarning($"Duplicate MissionSO found: {mission.typeID}");
+                }
+            }
+            missionHandle = handle;
+        }
+
+        void Mission_Release() {
+            if (missionHandle.IsValid()) {
+                Addressables.Release(missionHandle);
+            }
+        }
+
+        public bool Mission_TryGet(TypeID typeID, out MissionSO so) {
+            return missions.TryGetValue(typeID, out so);
+        }
+        #endregion
+        #region Prop
+        IEnumerator Prop_Load() {
+            var handle = Addressables.LoadAssetsAsync<PropSO>("Prop", null);
+            while (!handle.IsDone) {
+                yield return null;
+            }
+            var list = handle.Result;
+            if (list == null || list.Count == 0) {
+                Debug.LogWarning("No PropSO assets found.");
+                yield break;
+            }
+            foreach (var prop in list) {
+                bool succ = props.TryAdd(prop.tm.typeID, prop);
+                if (!succ) {
+                    Debug.LogWarning($"Duplicate PropSO found: {prop.tm.typeID}");
+                }
+            }
+            propHandle = handle;
+        }
+
+        void Prop_Release() {
+            if (propHandle.IsValid()) {
+                Addressables.Release(propHandle);
+            }
+        }
+
+        public bool Prop_TryGet(TypeID typeID, out PropSO so) {
+            return props.TryGetValue(typeID, out so);
+        }
+
+        public ICollection<PropSO> Prop_GetAll() {
+            return props.Values;
+        }
         #endregion
 
     }
