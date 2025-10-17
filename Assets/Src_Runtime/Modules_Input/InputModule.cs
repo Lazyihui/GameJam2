@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GJ.Modules_Input {
+namespace GJ {
 
     public class InputModule : MonoBehaviour {
 

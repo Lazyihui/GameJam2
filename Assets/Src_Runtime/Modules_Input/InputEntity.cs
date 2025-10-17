@@ -7,7 +7,6 @@ namespace GJ {
         public InputSystem_Action input_Role;
         // public Vector2 moveAxis;
 
-
         public bool isKeyDownE;
 
         public InputEntity() {
@@ -37,7 +36,6 @@ namespace GJ {
             {
                 if (World.PressE.triggered) {
                     isKeyDownE = true;
-                    GJLog.Log("PressE");
                 } else {
                     isKeyDownE = false;
                 }

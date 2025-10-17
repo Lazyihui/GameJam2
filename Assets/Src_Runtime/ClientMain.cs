@@ -1,5 +1,4 @@
 using System.Collections;
-using GJ.Modules_Input;
 using UnityEngine;
 
 namespace GJ {
@@ -17,6 +16,7 @@ namespace GJ {
         // ==== Repository =====
         static RoleRepository roleRepository;
         static GameEntity gameEntity;
+        static UserEntity userEntity;
 
         bool isInit = false;
         bool isTearDown = false;
@@ -27,6 +27,7 @@ namespace GJ {
             loginSystem = new LoginSystem();
             gameSystem = new GameSystem();
             gameEntity = new GameEntity();
+            userEntity = new UserEntity();
 
             // Modules
             uiCore = GetComponentInChildren<UICore>();
@@ -46,7 +47,9 @@ namespace GJ {
             loginSystem.Inject(assetModule, uiCore);
             gameSystem.Inject(assetModule, uiCore,
                                   roleRepository,
-                                  gameEntity
+                                  gameEntity,
+                                  inputModule,
+                                  userEntity
             );
 
             // Start

@@ -7,7 +7,8 @@ namespace GJ.Systems_Game {
 
         public static void NewGame(GameSystemContext ctx) {
             TypeID typeID = TypeID.Invalid;
-            RoleController.Spawn(ctx, typeID);
+            RoleEntity owner = RoleController.Spawn(ctx, typeID);
+            ctx.gameEntity.ownerID = owner.uniqueID;
             GJLog.Log("进入游戏");
             ctx.status = SystemStatus.Running;
         }

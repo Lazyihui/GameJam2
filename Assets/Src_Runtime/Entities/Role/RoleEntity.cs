@@ -8,13 +8,15 @@ namespace GJ {
         public UniqueID uniqueID;
         public TypeID typeID;
 
+        // Components
+        public RoleInputComponent inputComponent;
         public void Ctor() {
-
+            inputComponent = new RoleInputComponent();
         }
 
         public void TearDown() {
 
         }
-        
+
     }
 }
