@@ -15,6 +15,7 @@ namespace GJ {
         public AssetModule assetModule;
         public InputModule inputModule;
         public RoleRepository roleRepository;
+        public PropRepository propRepository;
         public UserEntity userEntity;
         public GameEntity gameEntity;
 

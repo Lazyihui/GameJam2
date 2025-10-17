@@ -11,7 +11,7 @@ namespace GJ {
         public TypeID typeID;
 
         public float testField1;
-        
+
         public void Ctor() {
 
         }
@@ -20,5 +20,8 @@ namespace GJ {
             Destroy(this.gameObject);
         }
 
+        public void TF_Pos_Set(Vector3 pos) {
+            this.transform.position = pos;
+        }
     }
 }
