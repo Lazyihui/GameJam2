@@ -13,9 +13,11 @@ namespace GJ {
         // Components
         public RoleInputComponent inputComponent;
         public RoleMoveComponent moveComponent;
+        public AttributeComponent attributeComponent;
         public void Ctor() {
             inputComponent = new RoleInputComponent();
             moveComponent = new RoleMoveComponent();
+            attributeComponent = new AttributeComponent();
         }
 
         #region Move

@@ -33,6 +33,7 @@ namespace GJ.Systems_Game {
             Input_Record(ctx, role, dt);
             // Loco
             Loco_PressE(ctx, role, dt);
+            Loco_MoveAxis(ctx, role, dt);
         }
 
         public static void Input_Record(GameSystemContext ctx, RoleEntity role, float dt) {
@@ -55,7 +56,8 @@ namespace GJ.Systems_Game {
             var inputComp = role.inputComponent;
             Vector2 axis = inputComp.MoveAxis_Get();
             // TODO: Speed from config
-            float speed = 5f;
+            // float speed = role.attributeComponent.GetFloat(AttributeFloatValueType.MoveSpeed);//还没配置
+            float speed = 15f;
             role.Move(axis, speed, dt);
         }
 

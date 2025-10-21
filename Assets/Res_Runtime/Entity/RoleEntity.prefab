@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 338940561601177554}
   - component: {fileID: -72382679404071589}
+  - component: {fileID: 4554572188603648735}
   m_Layer: 0
   m_Name: RoleEntity
   m_TagString: Untagged
@@ -53,6 +54,34 @@ MonoBehaviour:
     typeMajor: 0
     typeMinor: 0
     typePatch: 0
+  rb: {fileID: 4554572188603648735}
+--- !u!50 &4554572188603648735
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2612760855516988258}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2981835331688101106
 GameObject:
   m_ObjectHideFlags: 0
