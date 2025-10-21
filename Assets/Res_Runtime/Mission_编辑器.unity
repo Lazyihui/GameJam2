@@ -318,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 1929130966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnerTM:
     so: {fileID: 11400000, guid: bfc01d1be8af7d84fb4842cb272ba5f6, type: 2}
-    whereOffset: {x: 0, y: 0, z: 0}
+    whereOffset: {x: 5.15, y: 0, z: 0}
 --- !u!1001 &2009315697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,6 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2041220979}
+  - component: {fileID: 2041220980}
   m_Layer: 0
   m_Name: Mission
   m_TagString: Untagged
@@ -434,6 +435,19 @@ Transform:
   - {fileID: 323051248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2041220980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041220978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06486ae23785ef04eaac4be6da9575a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  so: {fileID: 11400000, guid: ef17ca6862b50824bbfddd167ebd0f0a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

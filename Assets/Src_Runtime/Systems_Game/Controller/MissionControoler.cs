@@ -1,4 +1,5 @@
 using System;
+using GJ.Systems_Game;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ namespace GJ {
             var tm = so;
 
             // 更具TM生成的任务数据进行初始化
+            // propSpawners
+            foreach (var propSpawnerTM in tm.propSpawners) {
+                PropController.Spawn_BySpawner(ctx, Vector2.zero, propSpawnerTM);
+            }
         }
     }
 }

@@ -17,3 +17,6 @@ MonoBehaviour:
     typeMinor: 0
     typePatch: 0
   originPos: {x: 0, y: 0, z: 0}
+  propSpawners:
+  - so: {fileID: 11400000, guid: bfc01d1be8af7d84fb4842cb272ba5f6, type: 2}
+    whereOffset: {x: 5.15, y: 0, z: 0}

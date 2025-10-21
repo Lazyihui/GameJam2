@@ -11,6 +11,8 @@ namespace GJ.Systems_Game {
             ctx.gameEntity.ownerID = owner.uniqueID;
             GJLog.Log("进入游戏");
             ctx.status = SystemStatus.Running;
+
+            MissionController.Load(ctx, new TypeID(0, 0, 0));
         }
 
         public static void OnResume(GameSystemContext ctx) {

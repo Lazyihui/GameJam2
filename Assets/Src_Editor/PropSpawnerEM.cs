@@ -12,11 +12,11 @@ namespace GJ.Editors_Mission {
 
         void Update() {
             if (!isInitialized) {
-                UpdateName();
-                UpdateLocomotion();
                 UpdateMod();
                 isInitialized = true;
             }
+            UpdateName();
+            UpdateLocomotion();
         }
 
         void UpdateName() {
