@@ -8,11 +8,15 @@ namespace GJ.Editors_Mission {
     public class PropSpawnerEM : MonoBehaviour {
 
         public PropSpawnerTM spawnerTM;
+        private bool isInitialized = false;
 
         void Update() {
-            UpdateName();
-            UpdateLocomotion();
-            UpdateMod();
+            if (!isInitialized) {
+                UpdateName();
+                UpdateLocomotion();
+                UpdateMod();
+                isInitialized = true;
+            }
         }
 
         void UpdateName() {
@@ -20,14 +24,14 @@ namespace GJ.Editors_Mission {
             if (so == null) {
                 return;
             }
-            string n = $"Prop_{so.tm.typeID}_{so.tm.typeName}";
+            string n = $"Prop_{so.tm.typeID}";
             if (this.name != n) {
                 this.name = n;
             }
         }
 
         void UpdateLocomotion() {
-            spawnerTM.whereOffset = transform.position;
+            spawnerTM.whereOffset = transform.localPosition;
         }
 
         void UpdateMod() {
@@ -45,7 +49,6 @@ namespace GJ.Editors_Mission {
             }
             if (entity == null) {
                 entity = PrefabUtility.InstantiatePrefab(tm.entityPrefab, transform) as PropEntity;
-                entity.name = so.name;
             }
         }
 

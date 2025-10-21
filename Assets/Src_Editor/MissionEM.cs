@@ -17,6 +17,9 @@ namespace GJ.Editors_Mission {
             for (int i = 0; i < propSpawners.Length; i++) {
                 so.propSpawners[i] = propSpawners[i].spawnerTM;
             }
+
+            // 存到硬盘里
+            EditorUtility.SetDirty(so);
         }
     }
 }
