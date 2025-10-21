@@ -74,7 +74,7 @@ namespace GJ.Systems_Game {
             Vector2 center = role.transform.position;
 
             // 执行圆形区域检测
-            int hitCount = Physics2D.OverlapCircleNonAlloc(center, radius, results);
+            int hitCount = Physics2D.OverlapCircleNonAlloc(center, radius, results, LayerMask.GetMask("Prop"));
 
             // 调试可视化 - 绘制圆形边界
             DrawCircle(center, radius, 32, Color.green);
@@ -91,8 +91,8 @@ namespace GJ.Systems_Game {
                 }
             }
         }
-
-        // 绘制圆形的方法
+        // TODO:到时候可以放到一个公共的工具类里
+        // 绘制圆形的方法 TODO
         static void DrawCircle(Vector2 center, float radius, int segments, Color color) {
             float angle = 0f;
             float angleIncrement = 360f / segments;

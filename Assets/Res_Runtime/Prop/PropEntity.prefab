@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1453680518934732457}
   - component: {fileID: -2697295058997913779}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PropEntity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 7728392612384343132}
   - component: {fileID: 7396152844014281411}
   - component: {fileID: 8462405238318709089}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
