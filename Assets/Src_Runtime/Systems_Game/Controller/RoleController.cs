@@ -39,8 +39,10 @@ namespace GJ.Systems_Game {
             var input = ctx.inputModule.inputEntity;
             var inputComp = role.inputComponent;
             inputComp.PressE_Set(input.isKeyDownE);
+            inputComp.MoveAxis_Set(input.moveAxis);
         }
 
+        #region Loco
         public static void Loco_PressE(GameSystemContext ctx, RoleEntity role, float dt) {
             var inputComp = role.inputComponent;
             if (inputComp.PressE_Get()) {
@@ -48,5 +50,15 @@ namespace GJ.Systems_Game {
                 ctx.events.Curtain_Open_Invoke();
             }
         }
+
+        public static void Loco_MoveAxis(GameSystemContext ctx, RoleEntity role, float dt) {
+            var inputComp = role.inputComponent;
+            Vector2 axis = inputComp.MoveAxis_Get();
+            // TODO: Speed from config
+            float speed = 5f;
+            role.Move(axis, speed, dt);
+        }
+
+        #endregion
     }
 }

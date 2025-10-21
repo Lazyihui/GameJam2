@@ -10,6 +10,10 @@ namespace GJ {
         public void PressE_Set(bool value) => pressE = value;
         public bool PressE_Get() => pressE;
 
+        Vector2 moveAxis;
+        public void MoveAxis_Set(Vector2 axis) => moveAxis = axis;
+        public Vector2 MoveAxis_Get() => moveAxis;
+
         InputKeyFlag castKeys;
         public InputKeyFlag CastKeys => castKeys;
 

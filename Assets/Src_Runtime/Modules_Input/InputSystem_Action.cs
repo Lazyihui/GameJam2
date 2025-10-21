@@ -35,6 +35,42 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""586fb878-6a8c-4b20-9ba5-0f5e9089d6a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0b76a05-3a5f-4eb4-b14d-3fb051e437e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c5552ae-aeba-4985-a3b0-4deefd776c9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""29a42a27-3bc1-4388-9d68-d7599965d61a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +84,94 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
                     ""action"": ""PressE"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ef8aa3f-55a2-4a54-9f69-8d447b9761ee"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""47b64b33-f945-4a26-814a-fc31e37d2b7f"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e308dbb-03a3-497e-baf6-3d72a6d01a59"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06b46a92-35ff-4a27-87a9-82782eed2a6e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3779e92f-e729-49bd-b2ce-19710bcdc415"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa99135e-cd44-49b7-9984-fc1c0b938ff2"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79d0dd4d-06d4-4297-a0d5-3bd8e2e85bf4"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a22bcc8e-f7c2-472b-a8de-a5d92fa7940a"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +181,10 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
         // World
         m_World = asset.FindActionMap("World", throwIfNotFound: true);
         m_World_PressE = m_World.FindAction("PressE", throwIfNotFound: true);
+        m_World_MoveLeft = m_World.FindAction("MoveLeft", throwIfNotFound: true);
+        m_World_MoveRight = m_World.FindAction("MoveRight", throwIfNotFound: true);
+        m_World_MoveUp = m_World.FindAction("MoveUp", throwIfNotFound: true);
+        m_World_MoveDown = m_World.FindAction("MoveDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +247,19 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_World;
     private List<IWorldActions> m_WorldActionsCallbackInterfaces = new List<IWorldActions>();
     private readonly InputAction m_World_PressE;
+    private readonly InputAction m_World_MoveLeft;
+    private readonly InputAction m_World_MoveRight;
+    private readonly InputAction m_World_MoveUp;
+    private readonly InputAction m_World_MoveDown;
     public struct WorldActions
     {
         private @InputSystem_Action m_Wrapper;
         public WorldActions(@InputSystem_Action wrapper) { m_Wrapper = wrapper; }
         public InputAction @PressE => m_Wrapper.m_World_PressE;
+        public InputAction @MoveLeft => m_Wrapper.m_World_MoveLeft;
+        public InputAction @MoveRight => m_Wrapper.m_World_MoveRight;
+        public InputAction @MoveUp => m_Wrapper.m_World_MoveUp;
+        public InputAction @MoveDown => m_Wrapper.m_World_MoveDown;
         public InputActionMap Get() { return m_Wrapper.m_World; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +272,18 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
             @PressE.started += instance.OnPressE;
             @PressE.performed += instance.OnPressE;
             @PressE.canceled += instance.OnPressE;
+            @MoveLeft.started += instance.OnMoveLeft;
+            @MoveLeft.performed += instance.OnMoveLeft;
+            @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveRight.started += instance.OnMoveRight;
+            @MoveRight.performed += instance.OnMoveRight;
+            @MoveRight.canceled += instance.OnMoveRight;
+            @MoveUp.started += instance.OnMoveUp;
+            @MoveUp.performed += instance.OnMoveUp;
+            @MoveUp.canceled += instance.OnMoveUp;
+            @MoveDown.started += instance.OnMoveDown;
+            @MoveDown.performed += instance.OnMoveDown;
+            @MoveDown.canceled += instance.OnMoveDown;
         }
 
         private void UnregisterCallbacks(IWorldActions instance)
@@ -143,6 +291,18 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
             @PressE.started -= instance.OnPressE;
             @PressE.performed -= instance.OnPressE;
             @PressE.canceled -= instance.OnPressE;
+            @MoveLeft.started -= instance.OnMoveLeft;
+            @MoveLeft.performed -= instance.OnMoveLeft;
+            @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveRight.started -= instance.OnMoveRight;
+            @MoveRight.performed -= instance.OnMoveRight;
+            @MoveRight.canceled -= instance.OnMoveRight;
+            @MoveUp.started -= instance.OnMoveUp;
+            @MoveUp.performed -= instance.OnMoveUp;
+            @MoveUp.canceled -= instance.OnMoveUp;
+            @MoveDown.started -= instance.OnMoveDown;
+            @MoveDown.performed -= instance.OnMoveDown;
+            @MoveDown.canceled -= instance.OnMoveDown;
         }
 
         public void RemoveCallbacks(IWorldActions instance)
@@ -163,5 +323,9 @@ public partial class @InputSystem_Action: IInputActionCollection2, IDisposable
     public interface IWorldActions
     {
         void OnPressE(InputAction.CallbackContext context);
+        void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveRight(InputAction.CallbackContext context);
+        void OnMoveUp(InputAction.CallbackContext context);
+        void OnMoveDown(InputAction.CallbackContext context);
     }
 }
