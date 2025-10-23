@@ -8,8 +8,12 @@ namespace GJ {
         public EntityType EntityType => EntityType.Role;
         public UniqueID uniqueID;
         public TypeID typeID;
+        public AllyStatus allyStatus;
 
         [SerializeField] Rigidbody2D rb;
+        // 动画状态机
+        [SerializeField] Animator animator;
+
         // Components
         public RoleInputComponent inputComponent;
         public RoleMoveComponent moveComponent;
@@ -38,8 +42,24 @@ namespace GJ {
 
         #endregion
 
-        public void TearDown() {
+        #region Animation
 
+        public void PlayAnimation(string animName) {
+            animator.Play(animName);
+        }
+        // 停止当前动画
+        public void StopAnimation() {
+            animator.enabled = false;
+        }
+
+        // 恢复动画
+        public void ResumeAnimation() {
+            animator.enabled = true;
+        }
+        #endregion
+
+        public void TearDown() {
+            Destroy(this.gameObject);
         }
 
     }
