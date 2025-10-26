@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0265cd5022e73d41a66d819076503d7, type: 3}
+  m_Name: ControllerSO_Main
+  m_EditorClassIdentifier: 
+  tm:
+    connections:
+    - parentNode: {fileID: 11400000, guid: 01669021da15ded4ab662820e605b9c8, type: 2}
+      childNode: {fileID: 11400000, guid: 094016f48b1248c47b160b2f3c46148a, type: 2}
+      childIndex: 0

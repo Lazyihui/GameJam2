@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using GJ.A;
 namespace GJ {
 
     [Serializable]
@@ -11,5 +11,6 @@ namespace GJ {
 
         // 预制体绑定
         public GameObject entityPrefab;
+        public ControllerSO[] controllerSOs;
     }
 }
